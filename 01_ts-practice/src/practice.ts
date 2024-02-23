@@ -72,7 +72,7 @@ interface Person {
 //   skills: string[];
 // }
 
-// 3. type Alias
+// -- type Alias
 type Developer = Person & {
   skills: string[];
 };
@@ -88,9 +88,67 @@ const developer1: Developer = {
   skills: ['js', 'css'],
 };
 
-type People = Person[];
+type People = Person[]; // Person[]를 People이라는 타입으로 사용
 const people: People = [person1, developer1];
 
 type Color = 'red' | 'orange' | 'yellow';
 const colorr: Color = 'red';
 const colors: Color[] = ['red', 'orange'];
+
+// -- Generics
+// type을 미리 모를 때
+// EX 1.
+function merge<A, B>(a: A, b: B): A & B {
+  return {
+    ...a,
+    ...b,
+  };
+}
+const merged = merge({ foo: 1 }, { bar: 1 });
+
+// EX 2.
+function wrap<T>(param: T) {
+  return {
+    param,
+  };
+}
+const wrapped = wrap(10);
+
+// -- interface 에서 Generics 사용
+interface Items<T> {
+  list: T[];
+}
+const items: Items<string> = {
+  list: ['a', 'b', 'c'],
+};
+
+// -- type 에서 Generics 사용
+type Buckets<T> = {
+  list: T[];
+};
+const bucket: Buckets<string> = {
+  list: ['a', 'b', 'c'],
+};
+
+// -- class 에서 Generics 사용
+class Queue<T> {
+  list: T[] = [];
+  get length() {
+    return this.list.length;
+  }
+  enqueue(item: T) {
+    this.list.push(item);
+  }
+  dequeue() {
+    this.list.shift();
+  }
+}
+const queue = new Queue<number>();
+queue.enqueue(0);
+queue.enqueue(1);
+queue.enqueue(2);
+queue.enqueue(3);
+console.log(queue.dequeue());
+console.log(queue.dequeue());
+console.log(queue.dequeue());
+console.log(queue.dequeue());
