@@ -61,14 +61,21 @@ interface Person {
   name: string;
   age?: number; // 설정 해도 되고, 안 해도 되는 값
 }
-// interface Developer{
+
+// 1. interface Developer{
 //     name:string;
 //     age?:number;
 //     skills:string[]
 // }
-interface Developer extends Person {
+
+// 2. interface Developer extends Person {
+//   skills: string[];
+// }
+
+// 3. type Alias
+type Developer = Person & {
   skills: string[];
-}
+};
 
 const person1: Person = {
   name: '눈사람',
@@ -80,3 +87,10 @@ const developer1: Developer = {
   age: 25,
   skills: ['js', 'css'],
 };
+
+type People = Person[];
+const people: People = [person1, developer1];
+
+type Color = 'red' | 'orange' | 'yellow';
+const colorr: Color = 'red';
+const colors: Color[] = ['red', 'orange'];
