@@ -56,3 +56,27 @@ const shapes: Shape[] = [new Circle(5), new Square(5, 4)];
 shapes.forEach((shape) => {
   console.log(shape.getArea());
 });
+
+interface Person {
+  name: string;
+  age?: number; // 설정 해도 되고, 안 해도 되는 값
+}
+// interface Developer{
+//     name:string;
+//     age?:number;
+//     skills:string[]
+// }
+interface Developer extends Person {
+  skills: string[];
+}
+
+const person1: Person = {
+  name: '눈사람',
+  age: 0,
+};
+
+const developer1: Developer = {
+  name: '개발장',
+  age: 25,
+  skills: ['js', 'css'],
+};
